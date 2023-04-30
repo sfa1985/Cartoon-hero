@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style type="text/css">
+            .carousel-container { 
+                position: relative; 
+                width: 100%; height: auto; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                overflow: hidden; 
+            } 
+            .carousel-container img { 
+                position: absolute; 
+                top: 0; 
+                left: 0; 
+                width: 100%; 
+                height: auto; 
+                opacity: 0; 
+                transition: opacity 1s ease-in-out; 
+            } 
+            .carousel-container img.active { 
+                opacity: 1; 
+            } 
+            @media screen and (min-width: 768px) { 
+                .carousel-container { height: 500px; } 
+                .carousel-container img { height: 100%; } 
+            } @media screen and (min-width: 992px) { 
+                .carousel-container { height: 600px; } 
+            } @media screen and (min-width: 1200px) { 
+                .carousel-container { height: 700px; } 
+            }
+
+        </style>
+
+        <script>
+            const carouselContainer = document.querySelector('.carousel-container');
+            const images = carouselContainer.querySelectorAll('img'); 
+            let currentIndex = 0; 
+            function showImage(index) { 
+                images[currentIndex].classList.remove('active'); 
+            images[index].classList.add('active'); 
+            currentIndex = index; 
+            } 
+            function slideCarousel() { 
+                let nextIndex = currentIndex + 1; 
+                if (nextIndex >= images.length) { nextIndex = 0; } 
+                showImage(nextIndex); 
+            } let interval = setInterval(slideCarousel, 20000); 
+            // Pause carousel on mouseover 
+            carouselContainer.addEventListener('mouseover', () => { clearInterval(interval); }); 
+            // Resume carousel on mouseout 
+            carouselContainer.addEventListener('mouseout', () => { interval = setInterval(slideCarousel, 20000); }); 
+            // Resize carousel on window resize 
+            window.addEventListener('resize', () => { 
+                const containerWidth = carouselContainer.offsetWidth; 
+                const imageWidth = images[0].offsetWidth; 
+                const maxLeft = (images.length - 1) * -imageWidth; 
+                let leftPosition = currentIndex * -imageWidth; 
+                if (leftPosition < maxLeft) { leftPosition = maxLeft; } 
+                carouselContainer.style.left = `${leftPosition}px`; 
+                carouselContainer.style.width = `${containerWidth}px`; });
+
+        </script>
+       
+
+    </head>
+    <body>
+        <div class="carousel-container"> 
+            <img src="image1.jpg" alt="Image 1"> <img src="image2.jpg" alt="Image 2"> 
+            <img src="image3.jpg" alt="Image 3"> <img src="image4.jpg" alt="Image 4"> 
+            <img src="image5.jpg" alt="Image 5"> 
+        </div>
+    </body>
+</html>
