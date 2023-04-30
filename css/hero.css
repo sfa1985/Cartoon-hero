@@ -1,10 +1,13 @@
 body {
     margin: 0;
+    font-family: "Instrument Serif", sans-serif;
 }
 
 header {
     background-color: red;
     text-align: center;
+    padding-top: 50px;
+    padding-bottom:50px;
 }
 
 header h1{
@@ -12,7 +15,7 @@ header h1{
 }
 
 header img {
-    border-radius: 200px;
+    border-radius: 170px;
     width: 300px;
     border: 20px solid #ffffff;
 }
